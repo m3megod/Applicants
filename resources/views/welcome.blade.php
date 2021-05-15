@@ -1,8 +1,7 @@
-
 <!doctype html>
 <html lang="en">
 <head>
-    <title>Table 02</title>
+    <title>Applicants</title>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
@@ -13,9 +12,9 @@
 <section class="ftco-section">
     <div class="container">
         <div class="row justify-content-center">
-            <div class="col-md-6 text-center mb-5">
-                <h2 class="heading-section">Table #02</h2>
-            </div>
+            <a href="/">
+                <h2 class="heading-section">Applicants</h2>
+            </a>
         </div>
         <div class="row">
             <div class="col-md-12">
@@ -24,68 +23,57 @@
                         <thead class="thead-dark">
                         <tr>
                             <th>ID no.</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Email</th>
-                            <th>&nbsp;</th>
+                            <th>Name</th>
+                            <th>Surname</th>
+                            <th>Years of Experience</th>
+                            <th>Hiring Status</th>
+                            <th>Action</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr class="alert" role="alert">
-                            <th scope="row">001</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="167b77647d7962627956737b777f7a3875797b">[email&#160;protected]</a></td>
-                            <td>
-                                <a href="#" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true"><i class="fa fa-close"></i></span>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr class="alert" role="alert">
-                            <th scope="row">002</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2a404b4945485e424558445e45446a4f474b434604494547">[email&#160;protected]</a></td>
-                            <td>
-                                <a href="#" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true"><i class="fa fa-close"></i></span>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr class="alert" role="alert">
-                            <th scope="row">003</th>
-                            <td>Larry</td>
-                            <td>the Bird</td>
-                            <td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="2a464b5858534843584e6a4f474b434604494547">[email&#160;protected]</a></td>
-                            <td>
-                                <a href="#" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true"><i class="fa fa-close"></i></span>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr class="alert" role="alert">
-                            <th scope="row">004</th>
-                            <td>John</td>
-                            <td>Doe</td>
-                            <td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="c5afaaadaba1aaa085a0a8a4aca9eba6aaa8">[email&#160;protected]</a></td>
-                            <td>
-                                <a href="#" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true"><i class="fa fa-close"></i></span>
-                                </a>
-                            </td>
-                        </tr>
-                        <tr class="alert" role="alert">
-                            <th scope="row">005</th>
-                            <td>Gary</td>
-                            <td>Bird</td>
-                            <td><a href="/cdn-cgi/l/email-protection" class="__cf_email__" data-cfemail="84e3e5f6fde6edf6e0c4e1e9e5ede8aae7ebe9">[email&#160;protected]</a></td>
-                            <td>
-                                <a href="#" class="close" data-dismiss="alert" aria-label="Close">
-                                    <span aria-hidden="true"><i class="fa fa-close"></i></span>
-                                </a>
-                            </td>
-                        </tr>
+                        @foreach($applicants as $applicant)
+                            <tr class="alert" role="alert">
+                                <th scope="row">{{$applicant->id}}</th>
+                                <td>{{$applicant->name}}</td>
+                                <td>{{$applicant->surname}}</td>
+                                <td>{{$applicant->experience_years}}</td>
+                                <td>
+                                    @if($applicant->is_hired == 0)
+                                        Un-Hired
+                                    @else
+                                        Hired
+                                    @endif
+                                </td>
+                                <td>
+
+                                            <a href="delete-applicant/{{$applicant->id}}" class="close">
+                                                <i class="fa fa-trash"
+                                                   data-original-title="Delete"
+                                                   data-toggle="tooltip">
+                                                </i>
+                                            </a>
+
+                                            <a href="/change-hiring/{{$applicant->id}}" class="close mr-1">
+                                                <i class="fa fa-id-badge"
+                                                   @if($applicant->is_hired == 0)
+                                                   data-original-title="Hire"
+                                                   @else
+                                                   data-original-title="Un-hire"
+                                                   @endif
+                                                   data-toggle="tooltip">
+                                                </i>
+                                            </a>
+
+                                            <a href="/edit-applicant/{{$applicant->id}}" class="close mr-1">
+                                                <i class="fa fa-edit"
+                                                   data-original-title="Edit"
+                                                   data-toggle="tooltip">
+                                                </i>
+                                            </a>
+
+                                </td>
+                            </tr>
+                        @endforeach
                         </tbody>
                     </table>
                 </div>
@@ -93,10 +81,8 @@
         </div>
     </div>
 </section>
-<script data-cfasync="false" src="{{asset('js/email-decode.min.js')}}">
-</script><script src="{{asset('js/jquery.min.js')}}"></script>
-<script src="{{asset('js/popper.js')}}"></script><script>eval(mod_pagespeed_dPzXbWK7Ii);</script>
-<script>eval(mod_pagespeed_JViKMxoawf);</script>
-<script>eval(mod_pagespeed_hzR5PsIGo5);</script>
+<script data-cfasync="false" src="{{asset('js/email-decode.min.js')}}"></script>
+<script src="{{asset('js/jquery.min.js')}}"></script>
+<script src="{{asset('js/popper.js')}}"></script>
 </body>
 </html>

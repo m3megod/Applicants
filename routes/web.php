@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ApplicantsController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', [ApplicantsController::class, 'index']);
+
+Route::get('/change-hiring/{id}', [ApplicantsController::class, 'changeHiring']);
+Route::get('/delete-applicant/{id}', [ApplicantsController::class, 'remove']);
+Route::get('/edit-applicant/{id}', [ApplicantsController::class, 'showEditForm']);
+Route::post('/edit-applicant/{id}', [ApplicantsController::class, 'edit']);
