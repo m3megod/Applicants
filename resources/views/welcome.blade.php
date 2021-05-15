@@ -31,50 +31,59 @@
                         </tr>
                         </thead>
                         <tbody>
-                        @foreach($applicants as $applicant)
+                        @if(count($applicants) != 0)
+                            @foreach($applicants as $applicant)
+                                <tr class="alert" role="alert">
+                                    <th scope="row">{{$applicant->id}}</th>
+                                    <td>{{$applicant->name}}</td>
+                                    <td>{{$applicant->surname}}</td>
+                                    <td>{{$applicant->experience_years}}</td>
+                                    <td>
+                                        @if($applicant->is_hired == 0)
+                                            Un-Hired
+                                        @else
+                                            Hired
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <a href="delete-applicant/{{$applicant->id}}" class="close">
+                                            <i class="fa fa-trash"
+                                               data-original-title="Delete"
+                                               data-toggle="tooltip">
+                                            </i>
+                                        </a>
+                                        <a href="/change-hiring/{{$applicant->id}}" class="close mr-1">
+                                            <i class="fa fa-id-badge"
+                                               @if($applicant->is_hired == 0)
+                                               data-original-title="Hire"
+                                               @else
+                                               data-original-title="Un-hire"
+                                               @endif
+                                               data-toggle="tooltip">
+                                            </i>
+                                        </a>
+                                        <a href="/edit-applicant/{{$applicant->id}}" class="close mr-1">
+                                            <i class="fa fa-edit"
+                                               data-original-title="Edit"
+                                               data-toggle="tooltip">
+                                            </i>
+                                        </a>
+                                    </td>
+                                </tr>
+                            @endforeach
+                        @else
                             <tr class="alert" role="alert">
-                                <th scope="row">{{$applicant->id}}</th>
-                                <td>{{$applicant->name}}</td>
-                                <td>{{$applicant->surname}}</td>
-                                <td>{{$applicant->experience_years}}</td>
                                 <td>
-                                    @if($applicant->is_hired == 0)
-                                        Un-Hired
-                                    @else
-                                        Hired
-                                    @endif
+                                    Applicants Not Found!
                                 </td>
-                                <td>
-
-                                            <a href="delete-applicant/{{$applicant->id}}" class="close">
-                                                <i class="fa fa-trash"
-                                                   data-original-title="Delete"
-                                                   data-toggle="tooltip">
-                                                </i>
-                                            </a>
-
-                                            <a href="/change-hiring/{{$applicant->id}}" class="close mr-1">
-                                                <i class="fa fa-id-badge"
-                                                   @if($applicant->is_hired == 0)
-                                                   data-original-title="Hire"
-                                                   @else
-                                                   data-original-title="Un-hire"
-                                                   @endif
-                                                   data-toggle="tooltip">
-                                                </i>
-                                            </a>
-
-                                            <a href="/edit-applicant/{{$applicant->id}}" class="close mr-1">
-                                                <i class="fa fa-edit"
-                                                   data-original-title="Edit"
-                                                   data-toggle="tooltip">
-                                                </i>
-                                            </a>
-
-                                </td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td></td>
                             </tr>
-                        @endforeach
                         </tbody>
+                        @endif
                     </table>
                 </div>
             </div>
