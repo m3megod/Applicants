@@ -9,7 +9,7 @@ class ApplicantsController extends Controller
 {
     public function index()
     {
-        $applicants = Applicants::all();
+        $applicants = Applicants::orderBy('experience_years', 'asc')->get();
 
         return view('welcome', compact(
             'applicants'
